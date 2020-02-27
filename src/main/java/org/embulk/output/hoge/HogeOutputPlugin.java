@@ -24,7 +24,6 @@ public class HogeOutputPlugin
     public interface PluginTask
             extends Task
     {
-/*
         // configuration option 1 (required integer)
         @Config("option1")
         public int getOption1();
@@ -38,7 +37,6 @@ public class HogeOutputPlugin
         @Config("option3")
         @ConfigDefault("null")
         public Optional<String> getOption3();
- */
     }
 
     @Override
