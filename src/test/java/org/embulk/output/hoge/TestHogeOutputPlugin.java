@@ -1,7 +1,9 @@
 package org.embulk.output.hoge;
 
 import com.google.common.io.Resources;
+import org.embulk.config.ConfigException;
 import org.embulk.config.ConfigSource;
+import org.embulk.exec.PartialExecutionException;
 import org.embulk.spi.OutputPlugin;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,11 +26,19 @@ public class TestHogeOutputPlugin
     public TestingEmbulk embulk = TestingEmbulk.builder().registerPlugin(OutputPlugin.class,"hoge",HogeOutputPlugin.class).build();
 
     @Test
-    public void test() throws Exception {
+    public void testNormalRun() throws Exception {
         ConfigSource configSource = embulk.loadYamlResource("org/embulk/output/hoge/out.yml");
         Path in =  Paths.get(Resources.getResource("org/embulk/output/hoge/in.csv").getPath());
-        System.out.println(configSource);
-        System.out.println(in);
+        //System.out.println(configSource);
+        //System.out.println(in);
+
+        embulk.runOutput(configSource, in);
+    }
+    //@Test(expected = ConfigException.class)
+    @Test(expected = PartialExecutionException.class)
+    public void testNoOption() throws Exception {
+        ConfigSource configSource = embulk.loadYamlResource("org/embulk/output/hoge/out_err.yml");
+        Path in =  Paths.get(Resources.getResource("org/embulk/output/hoge/in.csv").getPath());
 
         embulk.runOutput(configSource, in);
     }

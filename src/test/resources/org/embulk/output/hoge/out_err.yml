@@ -4,4 +4,4 @@ port: 3306
 database: travis_ci_test
 user: travis
 password: ""
-option1: 1
+#option1: 1
