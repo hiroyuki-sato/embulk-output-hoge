@@ -13,6 +13,7 @@ import org.embulk.config.TaskReport;
 import org.embulk.config.TaskSource;
 import org.embulk.spi.Exec;
 import org.embulk.spi.OutputPlugin;
+import org.embulk.spi.Page;
 import org.embulk.spi.PageOutput;
 import org.embulk.spi.Schema;
 import org.embulk.spi.TransactionalPageOutput;
@@ -70,12 +71,54 @@ public class HogeOutputPlugin
     {
     }
 
+    public static class HogePageOutput implements TransactionalPageOutput {
+        private TaskSource taskSource;
+        private Schema schema;
+        private int taskIndex;
+        public HogePageOutput(TaskSource taskSource, Schema schema, int taskIndex){
+            this.taskSource = taskSource;
+            this.schema = schema;
+            this.taskIndex = taskIndex;
+        }
+
+        @Override
+        public void add(final Page page)
+        {
+
+        }
+
+        @Override
+        public void finish()
+        {
+
+        }
+
+        @Override
+        public void close()
+        {
+
+        }
+
+        @Override
+        public void abort()
+        {
+
+        }
+
+        @Override
+        public TaskReport commit()
+        {
+            return null;
+        }
+    }
     @Override
     public TransactionalPageOutput open(TaskSource taskSource, Schema schema, int taskIndex)
     {
         PluginTask task = taskSource.loadTask(PluginTask.class);
 
         // Write your code here :)
-        throw new UnsupportedOperationException("HogeOutputPlugin.run method is not implemented yet");
+        return new HogePageOutput(taskSource, schema, taskIndex);
     }
+
+
 }
