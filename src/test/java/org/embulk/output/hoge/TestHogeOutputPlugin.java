@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
@@ -24,27 +25,12 @@ public class TestHogeOutputPlugin
 
     @Test
     public void test() throws Exception {
-        Path in = null;
-        ConfigSource config = embulk.newConfig().set("type","hoge");
-        try {
-            in = toPath("in.csv");
-        } catch (Exception ex ){
-            fail("Resource failed");
-        }
-        System.out.println(config);
+        ConfigSource configSource = embulk.loadYamlResource("org/embulk/output/hoge/out.yml");
+        Path in =  Paths.get(Resources.getResource("org/embulk/output/hoge/in.csv").getPath());
+        System.out.println(configSource);
         System.out.println(in);
 
-        TestingEmbulk.RunResult result = embulk.runOutput(config,in);
-
-        /*
-        try {
-            TestingEmbulk.RunResult result = embulk.runOutput(config,in);
-            System.out.println(result);
-            assertEquals(true,true);
-        } catch (Exception ex) {
-            fail("Run failed");
-        }
-*/
+        embulk.runOutput(configSource, in);
     }
     private Path toPath(String fileName) throws URISyntaxException
     {
