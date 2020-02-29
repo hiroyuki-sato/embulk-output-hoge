@@ -19,15 +19,15 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile  "org.embulk:embulk-core:0.9.23"
-    provided "org.embulk:embulk-core:0.9.23"
+    compile  "org.embulk:embulk-core:0.9.17"
+    provided "org.embulk:embulk-core:0.9.17"
     // compile "YOUR_JAR_DEPENDENCY_GROUP:YOUR_JAR_DEPENDENCY_MODULE:YOUR_JAR_DEPENDENCY_VERSION"
     testCompile "junit:junit:4.+"
 
-    testCompile "org.embulk:embulk-test:0.9.23"
-    testCompile 'org.embulk:embulk-standards:0.9.23'
-    testCompile "org.embulk:embulk-deps-buffer:0.9.23"
-    testCompile "org.embulk:embulk-deps-config:0.9.23"
+    testCompile "org.embulk:embulk-test:0.9.17"
+    testCompile 'org.embulk:embulk-standards:0.9.17'
+//    testCompile "org.embulk:embulk-deps-buffer:0.9.23"
+//    testCompile "org.embulk:embulk-deps-config:0.9.23"
 
 }
 
