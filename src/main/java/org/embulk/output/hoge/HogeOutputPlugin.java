@@ -15,8 +15,10 @@ import org.embulk.spi.Exec;
 import org.embulk.spi.OutputPlugin;
 import org.embulk.spi.Page;
 import org.embulk.spi.PageOutput;
+import org.embulk.spi.PageReader;
 import org.embulk.spi.Schema;
 import org.embulk.spi.TransactionalPageOutput;
+import org.embulk.spi.util.PagePrinter;
 
 public class HogeOutputPlugin
         implements OutputPlugin
@@ -73,7 +75,10 @@ public class HogeOutputPlugin
         private TaskSource taskSource;
         private Schema schema;
         private int taskIndex;
+        private PageReader reader;
+
         public HogePageOutput(TaskSource taskSource, Schema schema, int taskIndex){
+            this.reader = new PageReader(schema);
             this.taskSource = taskSource;
             this.schema = schema;
             this.taskIndex = taskIndex;
@@ -82,7 +87,10 @@ public class HogeOutputPlugin
         @Override
         public void add(final Page page)
         {
-
+            reader.setPage(page);
+            while( reader.nextRecord() ) {
+                System.out.println("test");
+            }
         }
 
         @Override
